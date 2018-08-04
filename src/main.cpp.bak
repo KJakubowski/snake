@@ -1,0 +1,9 @@
+#include <iostream>
+#include "dummy.h"
+
+int main()
+{
+	dummy dummy;
+	std::cout<<"Hello world!\n"<<dummy.start()<<std::endl;
+	return 0;
+}

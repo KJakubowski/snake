@@ -15,9 +15,9 @@ SET(LIB_NAME wonsz_lib)
 SET(HOST_NAME wonsz)
 
 ADD_LIBRARY(${LIB_NAME} ${SRC})
-ADD_EXECUTABLE(${HOST_NAME} ${SRC})
+#ADD_EXECUTABLE(${HOST_NAME} ${SRC})
 
-OPTION (TEST "Build all tests." OFF)
+OPTION (TEST "Build all tests." ON)
 
 # Setting gtest
 IF(TEST)
@@ -34,4 +34,5 @@ IF(TEST)
 	TARGET_LINK_LIBRARIES(wonsz_test ${LIB_NAME} gtest gtest_main)
 
 	ADD_TEST(run_test wonsz_test)
+
 ENDIF(TEST)

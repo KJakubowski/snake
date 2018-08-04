@@ -1,0 +1,7 @@
+#include <gtest/gtest.h>
+#include <iostream>
+
+TEST(main_test, initial_test)
+{
+	ASSERT_TRUE(true);
+}
