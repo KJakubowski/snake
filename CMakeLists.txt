@@ -11,13 +11,13 @@ INCLUDE_DIRECTORIES(src)
 
 FILE(GLOB_RECURSE SRC ./src/*.cpp)
 
-ADD_LIBRARY (WONSZ_LIB ${SRC})
+SET(LIB_NAME wonsz_lib)
+SET(HOST_NAME wonsz)
 
-ADD_EXECUTABLE (WONSZ ${SRC})
-
+ADD_LIBRARY(${LIB_NAME} ${SRC})
+ADD_EXECUTABLE(${HOST_NAME} ${SRC})
 
 OPTION (TEST "Build all tests." OFF)
-
 
 # Setting gtest
 IF(TEST)
@@ -29,9 +29,9 @@ IF(TEST)
 
 	FILE(GLOB_RECURSE TEST_SRC ./testing/*.cpp)
 
-	ADD_EXECUTABLE(Wonsz_test ${TEST_SRC})
+	ADD_EXECUTABLE(wonsz_test ${TEST_SRC})
 
-	TARGET_LINK_LIBRARIES(Wonsz_test WONSZ_LIB gtest gtest_main)
+	TARGET_LINK_LIBRARIES(wonsz_test ${LIB_NAME} gtest gtest_main)
 
-	ADD_TEST(run_test Wonsz_test)
+	ADD_TEST(run_test wonsz_test)
 ENDIF(TEST)
