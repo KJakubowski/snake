@@ -1,0 +1,37 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+PROJECT(Wonsz)
+
+set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_FLAGS "-g -Wall")
+
+SET(LIB_DIR lib)
+
+INCLUDE_DIRECTORIES(include)
+INCLUDE_DIRECTORIES(src)
+
+FILE(GLOB_RECURSE SRC ./src/*.cpp)
+
+ADD_LIBRARY (WONSZ_LIB ${SRC})
+
+ADD_EXECUTABLE (WONSZ ${SRC})
+
+
+OPTION (TEST "Build all tests." OFF)
+
+
+# Setting gtest
+IF(TEST)
+	ADD_SUBDIRECTORY(lib/googletest)
+
+	ENABLE_TESTING()
+
+	INCLUDE_DIRECTORIES(testing)
+
+	FILE(GLOB_RECURSE TEST_SRC ./testing/*.cpp)
+
+	ADD_EXECUTABLE(Wonsz_test ${TEST_SRC})
+
+	TARGET_LINK_LIBRARIES(Wonsz_test WONSZ_LIB gtest gtest_main)
+
+	ADD_TEST(run_test Wonsz_test)
+ENDIF(TEST)
