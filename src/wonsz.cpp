@@ -11,7 +11,7 @@ wonsz::wonsz(unsigned rows, unsigned columns) :
 	map[apple] = 'o';
 }
 
-void wonsz::update(char direction)
+void wonsz::update(dir_enum direction)
 {
 	map[location] = ' ';
 	move(direction);
@@ -23,19 +23,19 @@ void wonsz::update(char direction)
 	}
 }
 
-void wonsz::move(char direction)
+void wonsz::move(dir_enum direction)
 {
 	switch(direction) {
-		case 'r':
+		case dir_enum::east:
 			change_location(1, 1);
 			break;
-		case 'd':
+		case dir_enum::south:
 			change_location(0, 1);
 			break;
-		case 'l':
+		case dir_enum::west:
 			change_location(1, -1);
 			break;
-		case 'u':
+		case dir_enum::north:
 			change_location(0, -1);
 			break;
 	}

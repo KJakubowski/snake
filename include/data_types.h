@@ -31,3 +31,11 @@ struct map_data
 	}
 };
 
+enum class dir_enum
+{
+	north,
+	east,
+	south,
+	west
+};
+

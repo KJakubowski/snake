@@ -4,13 +4,13 @@ class wonsz
 {
 public:
 	wonsz(unsigned rows, unsigned columns);
-	void update(char direction);
+	void update(dir_enum direction);
 	map_data get_map() const;
 
 private:
 	void change_location(unsigned direction, int diff);
 	std::array<unsigned, 2> rand_apple();
-	void move(char direction);
+	void move(dir_enum direction);
 
 private:
 	map_data map;
