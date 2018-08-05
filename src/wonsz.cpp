@@ -1,15 +1,15 @@
 #include <wonsz.h>
 
 wonsz::wonsz(int rows, int columns) :
-    map(std::vector<std::vector<char>>(rows, std::vector<char>(columns, ' '))),
+    map(map_data(rows, columns)),
 	location(0,0)
 {
-	map[0][0] = '#';
+	map[location] = '#';
 }
 
 void wonsz::update(char direction)
 {
-	map[location.first][location.second] = ' ';
+	map[location] = ' ';
 
 	switch(direction) {
 		case 'r':
@@ -26,10 +26,10 @@ void wonsz::update(char direction)
 			break;
 	}
 
-	map[location.first][location.second] = '#';
+	map[location] = '#';
 }
 
-wonsz::map_type wonsz::get_map()
+map_data wonsz::get_map()
 {
 	return map;
 }
