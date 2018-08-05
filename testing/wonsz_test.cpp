@@ -48,22 +48,13 @@ TEST_F(wonsz_test, start_more_rows_and_columns)
 	EXPECT_EQ(uut.get_map().matrix, map.matrix);
 }
 
-TEST_F(wonsz_test, update_left_out_of_boundries)
-{
-	map_data map(map_type({{' ',' ','#'},
-	                       {' ','o',' '},
-	                       {' ',' ',' '}}));
-	sut->update(dir_enum::west);
-	EXPECT_EQ(sut->get_map().matrix, map.matrix);
-}
-
 TEST_F(wonsz_test, update_out_of_other_boundries)
 {
 	map_data map(map_type({{' ',' ',' '},
 	                       {' ','o',' '},
 	                       {' ',' ','#'}}));
-	sut->update(dir_enum::west);
 	sut->update(dir_enum::north);
+	sut->update(dir_enum::west);
 	EXPECT_EQ(sut->get_map().matrix, map.matrix);
 }
 
@@ -74,11 +65,11 @@ TEST_F(wonsz_test, not_squere_map_multiple_updates)
 	map_data map(map_type({{' ',' ',' ',' ',' '},
 	                       {' ','o',' ',' ',' '},
 	                       {'#',' ',' ',' ',' '}}));
+	uut.update(dir_enum::south);
 	uut.update(dir_enum::west);
 	uut.update(dir_enum::west);
 	uut.update(dir_enum::south);
 	uut.update(dir_enum::east);
-	uut.update(dir_enum::south);
 	uut.update(dir_enum::south);
 	uut.update(dir_enum::west);
 	uut.update(dir_enum::north);
@@ -112,6 +103,29 @@ TEST_F(wonsz_test, when_trying_to_turn_around__move_the_seme_direction)
 	                       {' ',' ',' '}}));
 	sut->update(dir_enum::east);
 	sut->update(dir_enum::west);
+	EXPECT_EQ(sut->get_map().matrix, map.matrix);
+}
+
+TEST_F(wonsz_test, when_eat_apple__make_snake_longer)
+{
+	map_data map(map_type({{' ','o',' '},
+	                       {' ','#',' '},
+	                       {' ','#',' '}}));
+	sut->update(dir_enum::east);
+	sut->update(dir_enum::south);
+	sut->update(dir_enum::south);
+	EXPECT_EQ(sut->get_map().matrix, map.matrix);
+}
+
+TEST_F(wonsz_test, when_eat_apple_and_move_more)
+{
+	map_data map(map_type({{' ','o',' '},
+	                       {' ',' ',' '},
+	                       {' ','#','#'}}));
+	sut->update(dir_enum::east);
+	sut->update(dir_enum::south);
+	sut->update(dir_enum::south);
+	sut->update(dir_enum::east);
 	EXPECT_EQ(sut->get_map().matrix, map.matrix);
 }
 

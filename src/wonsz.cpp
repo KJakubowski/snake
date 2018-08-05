@@ -5,7 +5,8 @@ wonsz::wonsz(unsigned rows, unsigned columns) :
     map(map_data(rows, columns)),
 	location {0,0},
 	apple (rand_apple()),
-	prev_direction(' ')
+	prev_direction(dir_enum::east),
+	has_eaten(false)
 {
 	map[location] = '#';
 	map[apple] = 'o';
@@ -13,13 +14,19 @@ wonsz::wonsz(unsigned rows, unsigned columns) :
 
 void wonsz::update(dir_enum direction)
 {
-	map[location] = ' ';
-	move(direction);
+	check_dir(direction);
+	if (has_eaten) {
+		has_eaten = false;
+	} else {
+		map[location] = ' ';
+	}
+	move(prev_direction);
 	map[location] = '#';
 
 	if (location == apple) {
 		apple = rand_apple();
 		map[apple] = 'o';
+		has_eaten = true;
 	}
 }
 
@@ -30,8 +37,7 @@ void wonsz::move(dir_enum direction)
 			change_location(1, 1);
 			break;
 		case dir_enum::south:
-			change_location(0, 1);
-			break;
+			change_location(0, 1); break;
 		case dir_enum::west:
 			change_location(1, -1);
 			break;
@@ -66,4 +72,14 @@ std::array<unsigned, 2> wonsz::rand_apple()
 		apple_loc[1] = std::rand() % map.size()[1];
 	} while (apple_loc == location);
 	return apple_loc;
+}
+
+void wonsz::check_dir(dir_enum direction)
+{
+	int dir_diff = direction - prev_direction;
+	if (abs(dir_diff) == 2) {
+		direction = static_cast<dir_enum>(direction - dir_diff);
+	} else {
+		prev_direction = direction;
+	}
 }

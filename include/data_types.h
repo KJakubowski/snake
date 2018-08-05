@@ -31,7 +31,7 @@ struct map_data
 	}
 };
 
-enum class dir_enum
+enum dir_enum
 {
 	north,
 	east,
