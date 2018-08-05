@@ -1,39 +1,21 @@
-#include <vector>
-
-using map_type = std::vector<std::vector<char>>;
-
-struct map_data
-{
-	map_type matrix;
-
-	map_data(int rows, int columns) :
-	    matrix(std::vector<std::vector<char>>(rows, std::vector<char>(columns, ' ')))
-	{}
-
-	map_data(map_type map) :
-	    matrix(map)
-	{}
-
-	char& operator[](std::pair<int, int> location)
-	{
-		return matrix[location.first][location.second];
-	}
-
-	bool operator==(const map_data& map) const
-	{
-		return map.matrix == matrix;
-	}
-};
+#include "data_types.h"
 
 class wonsz
 {
 public:
-	wonsz(int rows, int columns);
+	wonsz(unsigned rows, unsigned columns);
 	void update(char direction);
-	map_data get_map();
+	map_data get_map() const;
+
+private:
+	void change_location(unsigned direction, int diff);
+	std::array<unsigned, 2> rand_apple();
+	void move(char direction);
 
 private:
 	map_data map;
-	std::pair<int, int> location;
+	std::array<unsigned, 2> location;
+	std::array<unsigned, 2> apple;
+	char prev_direction;
 
 };
